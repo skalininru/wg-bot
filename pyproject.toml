@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "wg-admin"
+version = "0.1.0"
+description = ""
+authors = ["sk"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+loguru = "^0.6.0"
+pydantic = "^1.9.0"
+SQLAlchemy = "^1.4.32"
+psycopg2 = {version = "^2.9.3", extras = ["production"]}
+alembic = "^1.7.7"
+pyTelegramBotAPI = "^4.4.0"
+tabulate = "^0.8.9"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+flake8 = "^4.0.1"
+psycopg2-binary = "^2.9.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
