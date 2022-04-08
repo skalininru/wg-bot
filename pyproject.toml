@@ -9,7 +9,7 @@ python = "^3.8"
 loguru = "^0.6.0"
 pydantic = "^1.9.0"
 SQLAlchemy = "^1.4.32"
-psycopg2 = {version = "^2.9.3", extras = ["production"]}
+psycopg2 = "^2.9.3"
 alembic = "^1.7.7"
 pyTelegramBotAPI = "^4.4.0"
 tabulate = "^0.8.9"
