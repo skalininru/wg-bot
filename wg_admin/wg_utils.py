@@ -54,6 +54,12 @@ def get_wg_user(db: Session, wg_user_name):
         public_key=wg_user_keys['public_key'],
         private_key=wg_user_keys['private_key']
     )
+    wg_user_cmd = [
+        "wg", "set", config.SERVER_INTERFACE,
+        "peer", wg_user.public_key,
+        "allowed-ips", str(wg_user.ip_address)
+    ]
+    subprocess.check_call(wg_user_cmd)
     return wg_user
 
 
