@@ -25,3 +25,8 @@ def create_wguser(db: Session, wguser: wguser_scheme):
     db.commit()
     db.refresh(wg_user)
     return wg_user
+
+
+def remove_wguser(db: Session, username):
+    db.query(WGUser).filter_by(name=username).delete()
+    db.commit()

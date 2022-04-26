@@ -74,3 +74,14 @@ def get_user_config(wg_user: WGUserCreate):
         src = Template(f.read())
         result = src.substitute(template_config)
         return result
+
+
+def remove_wg_user(db: Session, username):
+    wg_user = db_wg_user.get_wguser_by_name(db, username)
+    wg_user_cmd = [
+        "wg", "set", config.SERVER_INTERFACE,
+        "peer", wg_user.public_key,
+        "remove"
+    ]
+    subprocess.check_call(wg_user_cmd)
+    db_wg_user.remove_wguser(db, username)

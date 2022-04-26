@@ -146,9 +146,8 @@ def remove_user(message):
         )
     else:
         if db_wg_user.get_wguser_by_name(wga_db, message.text):
-            msg = (
-                f"User {message.text} removed"
-            )
+            wg_utils.remove_wg_user(wga_db, message.text)
+            msg = (f"User {message.text} removed")
             logger.debug(msg)
             bot.send_message(message.chat.id, msg)
         else:
