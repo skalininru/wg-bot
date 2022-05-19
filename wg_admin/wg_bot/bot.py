@@ -135,26 +135,16 @@ def send_remove_user(message):
 
 
 def remove_user(message):
-    if not re.match(r"^[0-9a-z_]{3,10}$", message.text):
+    if db_wg_user.get_wguser_by_name(wga_db, message.text):
+        wg_utils.remove_wg_user(wga_db, message.text)
+        msg = (f"User {message.text} removed")
+        logger.debug(msg)
+        bot.send_message(message.chat.id, msg)
+    else:
         bot.send_message(
             message.chat.id,
-            (
-                "User name must contain only "
-                "lowercase letters, digits and '_' character. "
-                "Min lenght: 3. Max lenght: 10"
-            )
+            "User with this name not exist"
         )
-    else:
-        if db_wg_user.get_wguser_by_name(wga_db, message.text):
-            wg_utils.remove_wg_user(wga_db, message.text)
-            msg = (f"User {message.text} removed")
-            logger.debug(msg)
-            bot.send_message(message.chat.id, msg)
-        else:
-            bot.send_message(
-                message.chat.id,
-                "User with this name not exist"
-            )
 
 
 @bot.message_handler(commands=["about_me"])
