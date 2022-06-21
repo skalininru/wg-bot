@@ -22,6 +22,7 @@ def send_help(message):
         Available comands:
         /get_users: show active users
         /add_user: add new user
+        /get_user_config: get vpn config file
         /remove_user: remove existing user
         /about_me: show your profile
         /help: show this message
@@ -140,6 +141,38 @@ def remove_user(message):
         msg = (f"User {message.text} removed")
         logger.debug(msg)
         bot.send_message(message.chat.id, msg)
+    else:
+        bot.send_message(
+            message.chat.id,
+            "User with this name not exist"
+        )
+
+
+@bot.message_handler(commands=["get_user_config"])
+def send_user_config(message):
+    username = message.from_user.username
+    if db_user.get_role_by_name(wga_db, username) == "admin":
+        msg = bot.reply_to(
+            message,
+            "Write username to get config:"
+        )
+        bot.register_next_step_handler(msg, get_user_config)
+    else:
+        bot.send_message(
+            message.chat.id,
+            "You do not have sufficient privileges"
+        )
+
+
+def get_user_config(message):
+    wg_user = db_wg_user.get_wguser_by_name(wga_db, message.text)
+    if wg_user:
+        f = io.StringIO(wg_utils.get_user_config(wg_user))
+        bot.send_document(
+            message.chat.id,
+            f,
+            visible_file_name=f"{wg_user.name}.conf"
+        )
     else:
         bot.send_message(
             message.chat.id,
