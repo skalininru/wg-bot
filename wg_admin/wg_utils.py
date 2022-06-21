@@ -83,5 +83,7 @@ def remove_wg_user(db: Session, username):
         "peer", wg_user.public_key,
         "remove"
     ]
-    subprocess.check_call(wg_user_cmd)
+    logger.debug(f"remove user cmd: {wg_user_cmd}")
+    remove_user_result = subprocess.check_output(wg_user_cmd)
+    logger.debug(f"Result: {remove_user_result}")
     db_wg_user.remove_wguser(db, username)
