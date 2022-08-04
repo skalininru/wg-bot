@@ -14,3 +14,14 @@ def get_role_by_name(db: Session, username: str):
         return wga_user.role
     else:
         return None
+
+
+def create_admin_user(db: Session, username: str):
+    wga_user = User(
+        name=username,
+        role="admin"
+    )
+    db.add(wga_user)
+    db.commit()
+    db.refresh(wga_user)
+    return wga_user
