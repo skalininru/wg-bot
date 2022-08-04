@@ -1,8 +1,29 @@
-# wg-bot: Wireguard telegram bot
+# 🐉🤖 wg-bot: Wireguard telegram bot
 
 Telegram bot for Wireguard VPN user management
 
-# Installation
+# Features
+- Managing WireGuard peers:
+  - add peer
+  - remove peer
+  - show list of added peers
+- Retrieve configs as file: 
+  - quick and easy import into the wireguard client
+  - quick and easy forward config to someone else
+- Admin user
+  - only admin user can manage wireguard peers
+
+# Usage
+Just write a message to the bot.
+Available comands:
+- `/get_users`: show active users
+- `/add_user`: add new user
+- `/get_user_config`: get wireguard config file
+- `/remove_user`: remove existing user
+- `/about_me`: show your profile
+- `/help`: show help message
+
+# Installation and configuration
 - Install wireguard
 ```bash
 apt update -y && apt upgrade -y
