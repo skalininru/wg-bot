@@ -56,17 +56,35 @@ psql
 create database wga;
 create user u_wga with encrypted password 'mySuperPassw0rd!';
 grant all privileges on database wga to u_wga;
+alter database wga owner to u_wga;
+```
+
+- Install and configure poetry
+```bash
+apt install pipx
+pipx ensurepath
+pipx install poetry
+poetry completions bash > /etc/bash_completion.d/poetry.bash-completion
 ```
 
 - Install and configure wg-bot
 ```bash
-apt install python3-pip
-pip install --upgrade pip
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
-source $HOME/.poetry/env
-poetry completions bash > /etc/bash_completion.d/poetry.bash-completion
 cd /opt
 mkdir wg-admin
 cd wg-admin
 git clone https://github.com/skalininru/wg-bot.git
+cd wg-bot
+eval $(poetry env activate)
+poetry install
+```
+Environment variable configuration
+
+Run DB migration
+```bash
+cd wg_admin
+alembic upgrade head
+```
+Start application
+```bash
+python main.py
 ```
